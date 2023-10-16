@@ -17,7 +17,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.toMutableStateList
@@ -97,7 +96,7 @@ fun MyStatelessItem(id: Int, s: String, count:String, add: (Int) -> Unit, sub: (
 
             {
                 Text(s)
-                Text("$count")
+                Text(count)
             }
 
             ElevatedButton(onClick = {
@@ -117,61 +116,4 @@ fun MyStatelessItem(id: Int, s: String, count:String, add: (Int) -> Unit, sub: (
     }
 }
 
-@Composable
-fun MyItem(name: String =""){
-    //by allow to modify the mutableState as a normal variable
-    //setter/getter method not required
-    var count by rememberSaveable { mutableStateOf(0)
-    }
-
-    Surface (
-        color= MaterialTheme.colorScheme.primary,
-        modifier = Modifier
-            .padding(vertical = 4.dp, horizontal = 8.dp))
-    {
-        Row (modifier = Modifier
-            .fillMaxWidth()){
-            Column (
-                modifier = Modifier.weight(1f))
-
-            {
-                Text(name)
-                Text("$count")
-            }
-            ElevatedButton(onClick = { count++ })
-            {
-                Text("Add one")
-            }
-            ElevatedButton(onClick = { if (count>0) count-- })
-            {
-                Text("Sub one")
-            }
-        }
-    }
-
-}
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-
-    var count by remember { mutableStateOf(0) }
-
-    Column {
-        Text(
-            text = "Hello $name!",
-            modifier = modifier
-        )
-        Text(text = "$count")
-
-        for ( i in 1..100){
-            Button(onClick = { count++ },
-                modifier = Modifier
-                    .padding(top = 8.dp)
-                    .fillMaxWidth()
-            ) {
-                Text(text = "Click me!")
-            }
-        }
-    }
-
-}
 
